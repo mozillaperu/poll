@@ -1,0 +1,76 @@
+@font-face {
+    font-family: FiraSans-Medium;
+    src: url("/fonts/FiraSans-Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: FiraSans-Light;
+    src: url("/fonts/FiraSans-Light.otf") format("opentype");
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #F4F4F4;
+  font-family: FiraSans-Light;
+  position: relative;
+}
+
+header {
+    margin-top: 50px;
+}
+
+a, a:hover {
+  font-size: 24px;
+  color: #0C99D5;
+  text-decoration: none;
+}
+
+a.white, a.white:hover {
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+}
+
+p {
+  font-size: 18px;
+  padding: 20px 0 20px 0;
+}
+
+h1 {
+  font-family: FiraSans-Medium;
+}
+
+.logo {
+  width: 180px;
+  height: 180px;
+}
+
+.blue {
+  color: #0C99D5;
+}
+
+#event_block {
+  background-color: #231F1F;
+  color: white;
+}
+
+#footer {
+  margin-top: 110px;
+  background-color: #E5E5E5;
+  width: 100%
+  position: fixed;
+}
+
+#footer > div {
+  padding-top: 20px;
+}
