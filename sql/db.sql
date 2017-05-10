@@ -1,20 +1,17 @@
-CREATE DATABASE poll;
-USE poll;
+-- createdb poll
+-- \list
+-- \c poll
+-- \dt
 
-CREATE TABLE IF NOT EXISTS survey (
-id int(11) NOT NULL AUTO_INCREMENT,
-title varchar(50) NOT NULL,
-created date NOT NULL,
-PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+CREATE TABLE IF NOT EXISTS survey(
+  id SERIAL PRIMARY KEY,
+  title text NOT NULL,
+  created date NOT NULL
+);
 
-CREATE TABLE IF NOT EXISTS answer (
-id int(11) NOT NULL AUTO_INCREMENT,
-survey_id int(11) NOT NULL,
-name varchar(50) NOT NULL,
-value int(11) NOT NULL,
-PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-
-ALTER TABLE answer
-ADD CONSTRAINT PK_survey FOREIGN KEY (survey_id) REFERENCES survey(id);
+CREATE TABLE IF NOT EXISTS answer(
+  id SERIAL PRIMARY KEY,
+  survey_id int REFERENCES survey(id),
+  name text NOT NULL,
+  value text NULL
+);
