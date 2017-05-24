@@ -3,15 +3,15 @@
 -- \c poll
 -- \dt
 
-CREATE TABLE IF NOT EXISTS survey(
+CREATE TABLE IF NOT EXISTS survies (
   id SERIAL PRIMARY KEY,
   title text NOT NULL,
   created date NOT NULL
-);
+)
 
-CREATE TABLE IF NOT EXISTS answer(
+CREATE TABLE IF NOT EXISTS answers (
   id SERIAL PRIMARY KEY,
-  survey_id int REFERENCES survey(id),
+  survies_id int REFERENCES survies(id),
   name text NOT NULL,
   value text NULL
-);
+)
