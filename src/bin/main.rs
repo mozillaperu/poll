@@ -4,16 +4,15 @@
 extern crate rocket_contrib;
 extern crate rocket;
 extern crate poll;
-extern crate diesel;
+extern crate postgres;
 
 use std::path::{Path, PathBuf};
 use rocket::response::NamedFile;
 use rocket_contrib::Template;
 
-// Diesel
+// Postgres
 use self::poll::*;
 use self::poll::models::*;
-use self::diesel::prelude::*;
 
 #[get("/<file..>", rank = 5)]
 fn files(file: PathBuf) -> Option<NamedFile> {
@@ -28,6 +27,15 @@ fn not_found() -> Template {
 
 #[get("/")]
 fn index() -> Template {
+    println!("connection....");
+    let conn = cn();
+    for row in &conn.query("SELECT id, title FROM survies", &[]).unwrap() {
+        let survie = Survie {
+            id: row.get(0),
+            title: row.get(1)
+        };
+        println!("Found person {}", survie.title);
+    }
     let context = ();
     Template::render("index", &context)
 }

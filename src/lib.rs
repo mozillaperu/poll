@@ -1,21 +1,14 @@
-#[macro_use] extern crate diesel;
-#[macro_use] extern crate diesel_codegen;
-extern crate dotenv;
+extern crate postgres;
 extern crate chrono;
+extern crate native_tls;
 
-use diesel::prelude::*;
-use diesel::pg::PgConnection;
-use dotenv::dotenv;
+use postgres::{Connection, TlsMode};
+use postgres::tls::native_tls::NativeTls;
 use std::env;
 
-pub mod schema;
 pub mod models;
 
-pub fn establish_connection() -> PgConnection {
-    dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    PgConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+pub fn cn() -> Connection {
+    //let negotiator = NativeTls::new().unwrap(); //only for production
+    Connection::connect("postgres://dev:1234@localhost:5432/poll", TlsMode::None).unwrap() //TlsMode::Require(&negotiator)
 }
