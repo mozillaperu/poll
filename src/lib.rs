@@ -2,6 +2,9 @@ extern crate postgres;
 extern crate chrono;
 extern crate native_tls;
 
+#[macro_use]
+extern crate serde_derive;
+
 use postgres::{Connection, TlsMode};
 use postgres::tls::native_tls::NativeTls;
 use std::env;
