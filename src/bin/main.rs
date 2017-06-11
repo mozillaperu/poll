@@ -30,26 +30,18 @@ fn not_found() -> Template {
 }
 
 #[get("/survies")]
-fn survies() -> JSON<Value> {
+fn survies() -> JSON<Vec<Survie>> {
     println!("connection to db....");
     let conn = cn();
-    /*let mut quests: HashMap<&str, String>;
-    quests = HashMap::new();*/
-    let mut survies: HashMap<String, Survie>;
-    survies = HashMap::new();
-    for row in &conn.query("SELECT id, title FROM survies", &[]).unwrap() {
-        let id: i32 = row.get(0);
+    let mut vec:Vec<Survie> = Vec::new();
+    for row in &conn.query("select id, title from survies", &[]).unwrap() {
         let survie = Survie {
             id: row.get(0),
             title: row.get(1)
         };
-        survies.insert(id.to_string(), survie);
-        /*print!("r {:?}", row);
-        let id: i32 = row.get(0);
-        quests.insert("id", id.to_string());
-        quests.insert("title", row.get(1));*/
+        vec.push(survie);
     }
-    JSON(json!(survies))
+    JSON(vec)
 }
 
 #[get("/")]
