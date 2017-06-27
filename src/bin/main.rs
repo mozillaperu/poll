@@ -8,6 +8,7 @@ extern crate serde;
 extern crate serde_json;
 
 use std::path::{Path, PathBuf};
+use rocket::Route;
 use rocket::response::NamedFile;
 use rocket_contrib::Template;
 use rocket_contrib::{JSON};
@@ -74,4 +75,36 @@ fn main() {
     .mount("/", routes![files, index, survies, answers])
     .catch(errors![not_found])
     .launch();
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use rocket::testing::MockRequest;
+    use rocket::http::{Status, Method};
+
+    fn routes() -> Vec<Route> {
+        routes![
+            files,
+            index,
+            survies,
+            answers,
+        ]
+    }
+
+    #[test]
+    fn index() {
+        let rocket = rocket::ignite().mount("/", routes());
+        let mut req = MockRequest::new(Method::Get, "/");
+        let response = req.dispatch_with(&rocket);
+        assert_eq!(response.status(), Status::Ok);
+    }
+
+    #[test]
+    fn survies() {
+        let rocket = rocket::ignite().mount("/", routes());
+        let mut req = MockRequest::new(Method::Get, "/survies");
+        let response = req.dispatch_with(&rocket);
+        assert_eq!(response.status(), Status::Ok);
+    }
 }
